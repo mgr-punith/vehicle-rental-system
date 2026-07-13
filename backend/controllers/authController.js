@@ -1,0 +1,22 @@
+import { findOne } from '../models/User';
+import generateToken from '../utils/generateToken';
+
+// @desc  Login admin
+// @route POST /api/auth/login
+const loginUser = async (req, res) => {
+  const { email, password } = req.body;
+
+  const user = await findOne({ email });
+
+  if (user && (await user.matchPassword(password))) {
+    res.json({
+      _id: user._id,
+      email: user.email,
+      token: generateToken(user._id),
+    });
+  } else {
+    res.status(401).json({ message: 'Invalid email or password' });
+  }
+};
+
+export default { loginUser };
