@@ -1,10 +1,9 @@
 # Vehicle Rental Management System
 
-A full-stack vehicle rental management application with **Node.js + Express + MongoDB** on the backend and **Angular + Angular Material** on the frontend. The current implementation focuses on **admin login** and **vehicle CRUD management**. [file:1]
+A full-stack vehicle rental management application with **Node.js + Express + MongoDB** on the backend and **Angular + Angular Material** on the frontend. The current implementation focuses on **admin login** and **vehicle CRUD management**.
 
 ![Project Screenshot](./screenshot.png)
 
-> Replace `screenshot.png` with your actual image file in the project root, or update the image path if you keep it inside another folder. [file:1]
 
 ## Setup Instructions
 
