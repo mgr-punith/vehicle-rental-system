@@ -1,0 +1,13 @@
+export const getPagination = (req) => {
+  const page = Math.max(parseInt(req.query.page) || 1, 1);
+  const limit = Math.max(parseInt(req.query.limit) || 10, 1);
+  const skip = (page - 1) * limit;
+  return { page, limit, skip };
+};
+
+export const buildPaginationResponse = (totalRecords, page, limit, data) => ({
+  totalRecords,
+  currentPage: page,
+  totalPages: Math.ceil(totalRecords / limit),
+  data,
+});
