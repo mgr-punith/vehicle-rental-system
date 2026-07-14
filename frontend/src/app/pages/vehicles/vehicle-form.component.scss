@@ -1,0 +1,12 @@
+.vehicle-form {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(220px, 1fr));
+  gap: 16px;
+  padding-top: 8px;
+}
+
+@media (max-width: 768px) {
+  .vehicle-form {
+    grid-template-columns: 1fr;
+  }
+}

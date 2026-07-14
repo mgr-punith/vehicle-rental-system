@@ -1,0 +1,32 @@
+.layout-container {
+  height: 100vh;
+}
+
+.layout-sidenav {
+  width: 260px;
+  border-right: 1px solid #e0e0e0;
+}
+
+.brand {
+  font-size: 18px;
+  font-weight: 700;
+  padding: 20px 16px 12px;
+  color: #1976d2;
+}
+
+.layout-toolbar {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+
+.layout-content {
+  padding: 20px;
+  background: #f5f7fb;
+  min-height: calc(100vh - 64px);
+}
+
+.active-link {
+  background: rgba(25, 118, 210, 0.1);
+  border-radius: 8px;
+}

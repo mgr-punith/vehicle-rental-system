@@ -1,0 +1,122 @@
+<section class="vehicle-page">
+  <div class="page-header">
+    <div>
+      <h2>Vehicles</h2>
+      <p>Manage all vehicle records.</p>
+    </div>
+
+    <button mat-flat-button color="primary" (click)="openAddDialog()">
+      <mat-icon>add</mat-icon>
+      Add Vehicle
+    </button>
+  </div>
+
+  <mat-card class="filter-card">
+    <div class="filter-row">
+      <mat-form-field appearance="outline">
+        <mat-label>Search</mat-label>
+        <input
+          matInput
+          [(ngModel)]="search"
+          placeholder="Name, brand, reg number"
+          (keyup.enter)="applyFilters()"
+        />
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Status</mat-label>
+        <mat-select [(ngModel)]="status">
+          <mat-option value="">All</mat-option>
+          <mat-option value="Available">Available</mat-option>
+          <mat-option value="Booked">Booked</mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <div class="filter-actions">
+        <button mat-flat-button color="primary" (click)="applyFilters()">Apply</button>
+        <button mat-stroked-button (click)="resetFilters()">Reset</button>
+      </div>
+    </div>
+  </mat-card>
+
+  <mat-card class="table-card">
+    @if (loading) {
+      <app-loading-spinner></app-loading-spinner>
+    } @else {
+      <div class="table-wrapper">
+        <table mat-table [dataSource]="dataSource" class="mat-elevation-z0">
+          <ng-container matColumnDef="name">
+            <th mat-header-cell *matHeaderCellDef>Name</th>
+            <td mat-cell *matCellDef="let row">{{ row.name }}</td>
+          </ng-container>
+
+          <ng-container matColumnDef="brand">
+            <th mat-header-cell *matHeaderCellDef>Brand</th>
+            <td mat-cell *matCellDef="let row">{{ row.brand }}</td>
+          </ng-container>
+
+          <ng-container matColumnDef="model">
+            <th mat-header-cell *matHeaderCellDef>Model</th>
+            <td mat-cell *matCellDef="let row">{{ row.model }}</td>
+          </ng-container>
+
+          <ng-container matColumnDef="registrationNumber">
+            <th mat-header-cell *matHeaderCellDef>Reg No.</th>
+            <td mat-cell *matCellDef="let row">{{ row.registrationNumber }}</td>
+          </ng-container>
+
+          <ng-container matColumnDef="vehicleType">
+            <th mat-header-cell *matHeaderCellDef>Type</th>
+            <td mat-cell *matCellDef="let row">{{ row.vehicleType }}</td>
+          </ng-container>
+
+          <ng-container matColumnDef="rentPerDay">
+            <th mat-header-cell *matHeaderCellDef>Rent/Day</th>
+            <td mat-cell *matCellDef="let row">₹ {{ row.rentPerDay }}</td>
+          </ng-container>
+
+          <ng-container matColumnDef="status">
+            <th mat-header-cell *matHeaderCellDef>Status</th>
+            <td mat-cell *matCellDef="let row">
+              <span class="status-badge" [class.booked]="row.status === 'Booked'">
+                {{ row.status }}
+              </span>
+            </td>
+          </ng-container>
+
+          <ng-container matColumnDef="actions">
+            <th mat-header-cell *matHeaderCellDef>Actions</th>
+            <td mat-cell *matCellDef="let row">
+              <button mat-icon-button color="primary" (click)="openEditDialog(row)">
+                <mat-icon>edit</mat-icon>
+              </button>
+              <button mat-icon-button color="warn" (click)="deleteVehicle(row)">
+                <mat-icon>delete</mat-icon>
+              </button>
+            </td>
+          </ng-container>
+
+          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+        </table>
+
+        @if (!dataSource.data.length) {
+          <div class="empty-state">
+            <mat-icon>inventory_2</mat-icon>
+            <p>No vehicles found.</p>
+          </div>
+        }
+      </div>
+
+      <mat-paginator
+        [length]="totalRecords"
+        [pageSize]="pageSize"
+        [pageSizeOptions]="[5, 10, 20]"
+        [pageIndex]="currentPage - 1"
+        (page)="onPageChange($event)"
+        showFirstLastButtons
+      >
+      </mat-paginator>
+    }
+  </mat-card>
+</section>
